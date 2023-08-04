@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "- [ ] Criar o ambiente backend com Node.js;\r - [ ] Conectar o Prisma com o SQL Server;\r - [ ] Fazer uma consulta na tabela EQU_EQUIPAMENTOS;",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rocketseat/eslint-config": "2.1.0",
+    "@types/express": "4.17.17",
+    "@types/node": "20.4.6",
+    "eslint": "8.46.0",
+    "prisma": "5.1.1",
+    "tsup": "7.2.0",
+    "tsx": "3.12.7",
+    "typescript": "5.1.6"
+  },
+  "dependencies": {
+    "@prisma/client": "5.1.1",
+    "dotenv": "16.3.1",
+    "express": "4.18.2",
+    "zod": "3.21.4"
+  }
+}
