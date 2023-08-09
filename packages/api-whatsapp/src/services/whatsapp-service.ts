@@ -1,11 +1,11 @@
 import { LocalAuth, Client } from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 
-let clientIsReady = false;
+let clientIsReady: boolean;
 let qrCode: string;
 
 const client = new Client({
-  authStrategy: new LocalAuth(),
+  authStrategy: new LocalAuth({ clientId: 'cliente-1' }),
   puppeteer: {
     headless: true,
     args: [
@@ -27,6 +27,7 @@ client.on('ready', () => {
 });
 
 client.on('authenticated', () => {
+  clientIsReady = true;
   console.log('Client is authenticated!');
 });
 
@@ -36,7 +37,11 @@ client.on('disconnected', () => {
 });
 
 export async function initializeClient() {
-  await client.initialize();
+  try {
+    client.initialize();
+  } catch (error) {
+    console.error('Error initializing client:', error);
+  }
 }
 
 export function getClientIsReady() {
