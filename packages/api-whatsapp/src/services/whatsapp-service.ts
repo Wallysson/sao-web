@@ -35,6 +35,10 @@ client.on('disconnected', () => {
   console.log('Client is disconnected!');
 });
 
+export async function initializeClient() {
+  await client.initialize();
+}
+
 export function getClientIsReady() {
   return clientIsReady;
 }
