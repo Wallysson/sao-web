@@ -8,6 +8,8 @@ import { Input } from '../../../components/generic/Input';
 import { api } from '../../../lib/axios';
 import { useState } from 'react';
 import { notification } from '../../../helpers/notification';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const schema = z.object({
   username: z.string().min(4, 'Username must be at least 4 characters'),
@@ -28,6 +30,7 @@ export function LoginForm() {
     resolver: zodResolver(schema),
   });
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
@@ -36,8 +39,7 @@ export function LoginForm() {
 
       if (response.data.success) {
         notification('Authentication successful', 'success');
-
-        console.log('Authentication successful');
+        navigate('/');
       }
     } catch (error) {
       notification('Authentication failed', 'error');

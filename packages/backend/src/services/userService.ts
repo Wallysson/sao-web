@@ -1,4 +1,6 @@
+import jwt from 'jsonwebtoken';
 import { prisma } from '@/lib/prisma';
+import { secretKey } from '@/config/secret';
 
 export class UserService {
   async getMany() {
@@ -60,6 +62,8 @@ export class UserService {
       sNomeGRU: user?.GRU_Grupo.sNomeGRU.split('- ')[1],
     };
 
-    return { success: true, user: flattenedUsers };
+    const token = jwt.sign(flattenedUsers, secretKey, { expiresIn: '1h' });
+
+    return { success: true, user: flattenedUsers, token };
   }
 }

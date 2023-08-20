@@ -24,7 +24,18 @@ export const authenticateUserController = async (
   });
   try {
     const { username, password } = authenticateUserSchema.parse(req.body);
+
     const authResponse = await userService.authenticateUser(username, password);
+    if (authResponse.success) {
+      const token = authResponse.token;
+      console.log(token);
+
+      res.cookie('jwt', token, {
+        httpOnly: true, // Prevent JavaScript access to the cookie
+        sameSite: 'none', // Restrict the cookie to same-site requests
+        secure: false,
+      });
+    }
 
     res.status(authResponse.status || 200).json(authResponse);
   } catch (error) {
