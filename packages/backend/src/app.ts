@@ -1,8 +1,15 @@
+import cors from 'cors';
 import express from 'express';
-import { equipamentoRoutes } from './routes/equipamentoManutencaoRoutes';
+
+import bodyParser from 'body-parser';
+import { userRoutes } from './routes/userRoutes';
+
+import { maintenanceRoutes } from './routes/maintenanceRoutes';
 
 export const app = express();
 
-app.use('/equipamentos', equipamentoRoutes);
+app.use(cors());
+app.use(bodyParser.json());
 
-// verifyUserCredentials('051304', '0xdc1c3dce83bd537e6f939bef76a67e41');
+app.use('/equipaments', maintenanceRoutes);
+app.use('/users', userRoutes);
