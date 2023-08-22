@@ -1,3 +1,7 @@
+import { useSession } from '../../hooks/useSession';
+
 export function HomePage() {
-  return <h1>Home Page</h1>;
+  const { user } = useSession();
+
+  return <h1>{user?.sLoginUSU}</h1>;
 }

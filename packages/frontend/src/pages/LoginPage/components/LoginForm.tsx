@@ -9,7 +9,8 @@ import { api } from '../../../lib/axios';
 import { useState } from 'react';
 import { notification } from '../../../helpers/notification';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useSession } from '../../../hooks/useSession';
+import { UserType } from '../../../context/SessionContext';
 
 const schema = z.object({
   username: z.string().min(4, 'Username must be at least 4 characters'),
@@ -21,6 +22,12 @@ type LoginFormInputs = {
   password: string;
 };
 
+type UserData = {
+  success: boolean;
+  token: string;
+  user: UserType;
+};
+
 export function LoginForm() {
   const {
     handleSubmit,
@@ -29,16 +36,18 @@ export function LoginForm() {
   } = useForm<LoginFormInputs>({
     resolver: zodResolver(schema),
   });
-  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
+  const { setUser } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
       setIsLoading(true);
-      const response = await api.post('/users', data);
-
+      const response = await api.post<UserData>('/users', data);
       if (response.data.success) {
-        notification('Authentication successful', 'success');
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        setUser(response.data.user);
         navigate('/');
       }
     } catch (error) {
