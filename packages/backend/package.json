@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "- [ ] Criar o ambiente backend com Node.js;\r - [ ] Conectar o Prisma com o SQL Server;\r - [ ] Fazer uma consulta na tabela EQU_EQUIPAMENTOS;",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
     "start": "node build/server.js",

@@ -61,7 +61,6 @@ export class UserService {
       iControleGRU: user?.GRU_Grupo.iControleGRU,
       sNomeGRU: user?.GRU_Grupo.sNomeGRU.split('- ')[1],
     };
-
     const token = jwt.sign(flattenedUsers, secretKey, { expiresIn: '1h' });
 
     return { success: true, user: flattenedUsers, token };

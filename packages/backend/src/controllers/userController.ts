@@ -26,16 +26,13 @@ export const authenticateUserController = async (
     const { username, password } = authenticateUserSchema.parse(req.body);
 
     const authResponse = await userService.authenticateUser(username, password);
-    if (authResponse.success) {
-      const token = authResponse.token;
-      console.log(token);
-
-      res.cookie('jwt', token, {
-        httpOnly: true, // Prevent JavaScript access to the cookie
-        sameSite: 'none', // Restrict the cookie to same-site requests
-        secure: false,
-      });
-    }
+    const expirationDate = new Date();
+    expirationDate.setTime(expirationDate.getTime() + 60 * 60 * 1000); // 1 hour in milliseconds
+    res.cookie('token', authResponse.token, {
+      path: '/',
+      domain: 'localhost',
+      expires: expirationDate,
+    });
 
     res.status(authResponse.status || 200).json(authResponse);
   } catch (error) {
