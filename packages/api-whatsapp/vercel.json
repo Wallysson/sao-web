@@ -1,9 +1,15 @@
 {
-  "framework": "nodejs",
-  "functions": [
+  "version": 2,
+  "builds": [
     {
-      "name": "whatsapp-api",
-      "src": "build/index.js"
+      "src": "./build/index.js",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "./build/routes/(.*)"
     }
   ]
 }
