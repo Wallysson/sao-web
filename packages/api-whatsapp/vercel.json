@@ -1,0 +1,9 @@
+{
+  "framework": "nodejs",
+  "functions": [
+    {
+      "name": "whatsapp-api",
+      "src": "build/index.js"
+    }
+  ]
+}

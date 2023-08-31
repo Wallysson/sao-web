@@ -39,9 +39,7 @@ export function MenuItems({ showTitles }: { showTitles: boolean }) {
       {menu.map((menu: MenuItem, index: number) => (
         <li
           key={index}
-          className={`flex rounded-md p-2 cursor-pointer text-gray-300 text-sm items-center gap-x-4 mt-4 ${
-            index === 0 && 'bg-white'
-          } hover:bg-green-700 hover:text-white transition-all duration-300 ease-in-out`}
+          className={`flex rounded-md p-2 cursor-pointer text-gray-300 text-sm items-center gap-x-4 mt-4   hover:bg-green-700 hover:text-white transition-all duration-300 ease-in-out`}
         >
           {mapIconNameToIcon(menu.icon)}
           <span
